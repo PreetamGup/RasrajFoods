@@ -36,7 +36,7 @@ const RegisterPage = () => {
     const handleOtpVerify = async() => {
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/user/verifyOtp`, { mobile, otp });
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/user/verifyOtp`, { mobile, otp },{withCredentials: true});
             console.log(response);
             if (response.status === 200) {
                 alert('Mobile Verified!');
