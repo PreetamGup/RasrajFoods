@@ -81,7 +81,7 @@ export default function CheckOut() {
 
     try {
       const totalAmount = parseFloat(calculateTotal()) * 100; // Convert to paisa
-      const {data: { order }} = await axios.post('http://localhost:8080/api/v1/payment/createOrder', {
+      const {data: { order }} = await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/payment/createOrder`, {
         userId: user._id,
         amount: totalAmount.toString(),
         cart,
