@@ -7,12 +7,10 @@ import connectDB from './db/db.connection.js';
 
 const startServer=async()=>{
     
+    const server = http.createServer(app);
     await connectDB(); // Connect to MongoDB  
-     
-
     const PORT = process.env.PORT || 8080;
     
-    const server = http.createServer(app);
     
     
     server.listen(PORT, () => {
