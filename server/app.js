@@ -39,7 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 //rotues 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello World!");
 })
 app.use("/api/v1/product",productRouter )
