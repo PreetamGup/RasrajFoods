@@ -128,7 +128,7 @@ const userMethods = {
             const otp =  Math.floor(1000 + Math.random() * 9000);
             console.log(`Generated OTP: ${otp}`);
             redisClient.set(mobile, otp);
-            redisClient.expire(mobile, 120);
+            redisClient.expire(mobile, 900);
             // Store OTP in Redis for 60 seconds
             // Here you can add logic to send the OTP to the user, e.g., via email or SMS
             // For example, using a fictional sendOtp function:

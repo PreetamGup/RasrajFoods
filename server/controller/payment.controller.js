@@ -79,12 +79,12 @@ const paymentController = {
 
 
             res.redirect(
-            `http://localhost:5173/success?payment_id=${razorpay_order_id}`
+            `${process.env.FRONTEND_URL}/success?payment_id=${razorpay_order_id}`
             );
             return;
         } else {
             res.redirect(
-            `http://localhost:5173/failure?payment_id=${razorpay_order_id}`
+            `${process.env.FRONTEND_URL}/failure?payment_id=${razorpay_order_id}`
             );
             return;
         }
