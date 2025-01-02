@@ -15,6 +15,7 @@ export const app = express();
 app.use(cors(
     {
       origin: ["http://localhost:5173", "https://rasraj-foods.vercel.app"], // replace with your frontend URL
+      httpOnly: true,
       credentials: true,
     }
   
@@ -38,6 +39,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 //rotues 
+app.use("/", (req, res) => {
+  res.send("Hello World!");
+})
 app.use("/api/v1/product",productRouter )
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/payment", paymentRouter)
