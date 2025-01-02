@@ -68,7 +68,7 @@ const LoginPage = () => {
             <div className="w-full max-w-md  rounded-lg shadow-xl bg-white bg-opacity-20 p-8">
                 <div className="text-center">
                     <img
-                        src='../../public/logos/android-chrome-512x512.png'
+                        src='/logos/android-chrome-512x512.png'
                         alt="Food logo"
                         className="w-24 mx-auto mb-4"
                     />
