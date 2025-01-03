@@ -14,6 +14,10 @@ dotenv.config();
 
 export const app = express();
 
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use(cors(
     {
@@ -24,13 +28,14 @@ app.use(cors(
   
 ));
 
-app.use(cookieParser());
+
+
 
 export let redisClient;
 
 (async () => {
   redisClient = createClient({
-   url:process.env.REDIS_URL,
+  //  url:process.env.REDIS_URL,
 });
 
   redisClient.on("error", (error) => console.error(`Error : ${error}`));
@@ -38,10 +43,6 @@ export let redisClient;
   await redisClient.connect();
 })();
 
-app.use(logger('dev'));
-
-app.use(express.json());
-app.use(express.urlencoded());
 
 //rotues 
 app.get("/", (req, res) => {
