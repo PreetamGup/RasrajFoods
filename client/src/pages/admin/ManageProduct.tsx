@@ -97,8 +97,8 @@ const ManageProduct = () => {
        const response = await axios.patch(`${import.meta.env.VITE_SERVER_API_V1}/product/editproduct/${editData._id}`, editData);
        if (response.status === 200) {
         const updatedProduct = response.data.product;
-        setProducts(allProduct.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
-        setProduct(allProduct.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
+        setProducts(products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
+        setProduct(products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
        }
       
     } catch (error:any) {

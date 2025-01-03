@@ -47,7 +47,7 @@ const OrdersManage = () => {
               font-size: 10px;
               line-height: 1.2;
               margin: 0;
-              padding: 4px;
+              padding: 10px;
               width: 80mm;
             }
             .header {
