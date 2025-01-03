@@ -87,7 +87,7 @@ export default function CheckOut() {
         cart,
         customerInfo: {name: formData.name, contact: formData.mobile, address: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.pincode}`},
       
-      });
+      },{withCredentials: true});
 
       console.log(order);
 

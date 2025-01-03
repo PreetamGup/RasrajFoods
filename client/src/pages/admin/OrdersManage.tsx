@@ -11,8 +11,7 @@ const OrdersManage = () => {
   const getAllOrders = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_API_V1}/payment/allorders?status=${status}`
-      );
+        `${import.meta.env.VITE_SERVER_API_V1}/payment/allorders?status=${status}`,{withCredentials: true});
       setAllOrders(response.data.orders);
     } catch (error: any) {
       console.error("Error fetching orders:", error.message);

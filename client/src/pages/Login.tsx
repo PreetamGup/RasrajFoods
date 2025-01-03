@@ -1,8 +1,8 @@
 import  { useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/user.context';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+
 
 
 const LoginPage = () => {
@@ -21,8 +21,6 @@ const LoginPage = () => {
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/user/login`, { mobile },{withCredentials:true});
                 console.log(response.data.message, response.data.otp);          
                 localStorage.setItem('token',response.data.token);
-                const decode = jwtDecode(localStorage.getItem('token') as string);
-                console.log(decode)
                 setShowOtpInput(true);
 
             } catch (error:any) {

@@ -3,18 +3,28 @@ import axios from 'axios'
 import { useUserContext } from '../../context/user.context'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Order } from '../../types/Order'
+import { useNavigate } from 'react-router-dom'
 
 const OrderHistory = () => {
 
   const [orders, setOrders] = useState<Order[]>([])
   const [expandedOrders, setExpandedOrders] = useState<string[]>([])
-  const {user, setLoading } = useUserContext()
+  const {user, setLoading, setUser } = useUserContext()
+  const navigate = useNavigate()
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_SERVER_API_V1}/user/userdata/${user._id}`);
+      setLoading(true);
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_API_V1}/user/userdata/${user._id}`,{withCredentials: true});
       setOrders(response.data.user.orderHistory)
     } catch (error: any) {
+      if(error.response.status === 401 || 403){
+        // Redirect to login page or show error message
+        console.error("Unauthorized access to dashboard. Please login.");
+        setUser({ fullName: '', mobile: 0, address: '', role: '', _id: '', orderHistory: [] })
+        navigate('/login');
+        return;
+      }
       console.error("Error fetching orders:", error.message);
     } finally {
       setLoading(false);

@@ -19,6 +19,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/users/Profile';
 import OrderHistory from './pages/users/OrderHistory';
 import OrdersManage from './pages/admin/OrdersManage';
+import Dashboard from './pages/admin/Dashboard';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route path="/user/cart" element={<Cart />} />
           </Route>
           <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>} >
+            <Route path='/admin/dashboard' element={<Dashboard />} />
             <Route path="/admin/products" element={<ManageProduct />} />
             <Route path="/admin/users" element={<UserManage />} />
             <Route path="/admin/orders" element={<OrdersManage />} />

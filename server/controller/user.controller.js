@@ -43,7 +43,7 @@ const userMethods = {
                 return res.status(404).json({ message: "Product not found", success: false });
             
             }
-            console.log(id)
+            
             const user = await User.findById(id).populate({
                 path: "orderHistory", // First, populate the orderHistory field in User schema
                 populate: {          // Then, populate the items.food field in each Order
@@ -80,9 +80,9 @@ const userMethods = {
         req.body.login=true;
         const otp = userMethods.generateOtp(req);
         
-        const token =  jwt.sign({user}, process.env.JWT_SCRERT, {expiresIn: '15m'});
+        const token =  jwt.sign({user}, process.env.JWT_SCRERT, {expiresIn: '1d'});
         
-        res.cookie("token", token, {expires:new Date(Date.now() + 900000), httpOnly:true});
+        res.cookie("token", token, {expires:new Date(Date.now() + 86400000), httpOnly:true});
         return res.json({token, otp:otp, message:"OTP Generated", success:true});
     },
 

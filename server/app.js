@@ -3,11 +3,14 @@ import cors from "cors";
 import productRouter from "./routes/product.router.js";
 import userRouter from "./routes/user.router.js";
 import paymentRouter from "./routes/payment.router.js";
+import adminRouter from "./routes/admin.router.js";
 import dotenv from "dotenv";
 import {createClient} from 'redis';
 import cookieParser from "cookie-parser";
+import logger from 'morgan';
 
 dotenv.config();
+
 
 export const app = express();
 
@@ -35,6 +38,8 @@ export let redisClient;
   await redisClient.connect();
 })();
 
+app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded());
 
@@ -42,6 +47,8 @@ app.use(express.urlencoded());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 })
+
+app.use("/api/v1/admin", adminRouter)
 app.use("/api/v1/product",productRouter )
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/payment", paymentRouter)

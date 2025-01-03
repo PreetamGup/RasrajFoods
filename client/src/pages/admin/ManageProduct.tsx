@@ -75,7 +75,7 @@ const ManageProduct = () => {
 
     try {
       // Add product to the database
-      const response= await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/product/addproduct`, formData);
+      const response= await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/product/addproduct`, formData, {withCredentials: true});
 
       if (response.status === 201) {
         console.log('Product Added:', response.data);
@@ -94,7 +94,7 @@ const ManageProduct = () => {
   const handleEditSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-       const response = await axios.patch(`${import.meta.env.VITE_SERVER_API_V1}/product/editproduct/${editData._id}`, editData);
+       const response = await axios.patch(`${import.meta.env.VITE_SERVER_API_V1}/product/editproduct/${editData._id}`, editData,{withCredentials: true});
        if (response.status === 200) {
         const updatedProduct = response.data.product;
         setProducts(products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
@@ -110,7 +110,7 @@ const ManageProduct = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_API_V1}/product/deleteproduct/${id}`);
+      await axios.delete(`${import.meta.env.VITE_SERVER_API_V1}/product/deleteproduct/${id}`,{withCredentials: true});
       setProducts(allProduct.filter((product) => product._id!== id));
       setProduct(allProduct.filter((product) => product._id!== id));
     } catch (error:any) {

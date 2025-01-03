@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useUserContext } from '../../context/user.context';
+import { useNavigate } from 'react-router-dom';
 
 const UserManage = () => {
 
@@ -12,6 +14,8 @@ const UserManage = () => {
 
   const [users, setUsers] = useState<User[]>([]);
   const [originalUsers, setOriginalUsers] = useState<User[]>([]);
+  const {setUser} = useUserContext()
+  const navigate=useNavigate()
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,7 +27,15 @@ const UserManage = () => {
 
         setUsers(response.data.allUsers);
         setOriginalUsers(response.data.allUsers); // Store the original user list
-      } catch (error) {
+        
+      } catch (error:any) {
+          if(error.response.status === 401 || 403){
+            // Redirect to login page or show error message
+            console.error("Unauthorized access to dashboard. Please login.");
+            setUser({ fullName: '', mobile: 0, address: '', role: '', _id: '', orderHistory: [] })
+            navigate('/login');
+            return;
+        }
         console.error('There was an error fetching the users!', error);
       }
     };

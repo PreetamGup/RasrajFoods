@@ -94,10 +94,9 @@ const paymentController = {
     getAllOrder: async function(req,res){
         try {
             const {status}= req.query;
-            console.log(status);
+    
             const orders = await Order.find({status:status}).populate("items.food").populate({path:"userId", select:"fullName address mobile"}).sort({orderDate:-1});
            
-
             return res.status(200).json({ orders });
         } catch (error) {
             console.log(error);
