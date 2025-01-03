@@ -82,7 +82,13 @@ const userMethods = {
         
         const token =  jwt.sign({user}, process.env.JWT_SCRERT, {expiresIn: '1d'});
         
-        res.cookie("token", token, {expires:new Date(Date.now() + 86400000), httpOnly:true});
+        res.cookie("token", token, {
+            maxAge: 86400000,
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+        });
+        
         return res.json({token, otp:otp, message:"OTP Generated", success:true});
     },
 
