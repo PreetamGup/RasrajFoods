@@ -83,7 +83,7 @@ export default function CheckOut() {
       const totalAmount = parseFloat(calculateTotal()) * 100; // Convert to paisa
       const {data: { order }} = await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/payment/createOrder`, {
         userId: user._id,
-        amount: totalAmount.toString(),
+        amount: totalAmount.toFixed(2).toString(),
         cart,
         customerInfo: {name: formData.name, contact: formData.mobile, address: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.pincode}`},
       
@@ -102,7 +102,7 @@ export default function CheckOut() {
 
       const options = {
         key: import.meta.env.RAZORPAY_KEY_ID, // Replace with your Razorpay key
-        amount: totalAmount.toString(),
+        amount: totalAmount.toFixed(2).toString(),
         currency: 'INR',
         name: 'Rasraj Foods',
         description: 'Purchase Description',
