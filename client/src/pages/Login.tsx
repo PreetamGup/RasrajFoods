@@ -11,6 +11,7 @@ const LoginPage = () => {
     const [showOtpInput, setShowOtpInput] = useState(false);
     const navigate = useNavigate();
     const {  setLoggedIn } = useUserContext();
+    const {error, setError} = useUserContext();
 
     const handleLoginClick = async() => {
       
@@ -19,13 +20,14 @@ const LoginPage = () => {
             try {
                 
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_API_V1}/user/login`, { mobile },{withCredentials:true});
-                console.log(response.data.message, response.data.otp);          
+                alert(`${response.data.message+ "\n"+ response.data.otp}`);          
                 localStorage.setItem('token',response.data.token);
+                setError(null);
                 setShowOtpInput(true);
 
             } catch (error:any) {
                 if(error.response.status === 400){
-                    alert(`${error.response.data}`);
+                    setError(error.response.data);
                 }
                 else{
                     console.log(error.response.data);
@@ -44,12 +46,14 @@ const LoginPage = () => {
             if (response.status === 200) {
                 alert('Login Successful!');
                 setLoggedIn(true);
+                setError(null)
                 window.location.href = '/menu';
             } 
         } catch (error:any) {
             
             if(error.response.status === 400){
-                alert(`${error.response.data}`);
+               
+                setError(error.response.data);
             }
             else{
                 console.log(error.response.data);
@@ -85,6 +89,9 @@ const LoginPage = () => {
                                 placeholder="Enter your mobile number"
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
                             />
+
+                            {error && <p className="text-red-500 text-sm mt-2 text-center font-semibold">{error}</p>}
+
                             <button
                                 type="button"
                                 onClick={handleLoginClick}
@@ -114,6 +121,9 @@ const LoginPage = () => {
                                 placeholder="Enter the OTP sent to your number"
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
                             />
+
+                            {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
+
                             <button
                                 type="button"
                                 onClick={handleOtpVerify}

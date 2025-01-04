@@ -182,7 +182,7 @@ const OrdersManage = () => {
             <tr key={order._id}>
               <td className="border border-gray-300 px-4 py-2">{order.order_id}</td>
               <td className="border border-gray-300 px-4 py-2">
-                {new Date(order.orderDate).toLocaleDateString()}
+                {new Date(order.orderDate).toLocaleDateString('en-IN')}
               </td>
               <td className="border border-gray-300 px-4 py-2">
                 {order.customerInfo.name}

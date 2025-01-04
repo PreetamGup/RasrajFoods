@@ -48,8 +48,8 @@ function App() {
           </Route>
           <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>} >
             <Route path='/admin/dashboard' element={<Dashboard />} />
-            <Route path="/admin/products" element={<ManageProduct />} />
-            <Route path="/admin/users" element={<UserManage />} />
+            <Route path="/admin/manageproducts" element={<ManageProduct />} />
+            <Route path="/admin/usermanagement" element={<UserManage />} />
             <Route path="/admin/orders" element={<OrdersManage />} />
           </Route>         
         </Routes>

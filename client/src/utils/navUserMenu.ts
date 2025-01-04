@@ -26,7 +26,7 @@ export const adminMenu: MenuItem[] = [
     },
     {
         label: 'Manage Products',
-        href: '/admin/products',
+        href: '/admin/manageproducts',
         icon: Package
     },
     {
@@ -36,7 +36,7 @@ export const adminMenu: MenuItem[] = [
     },
     {
         label: 'User Management',
-        href: '/admin/users',
+        href: '/admin/usermanagement',
         icon: Users
     },
     {

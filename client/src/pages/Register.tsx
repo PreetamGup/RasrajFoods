@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../context/user.context';
 
 const RegisterPage = () => {
     const [fullName, setFullName] = useState('');
@@ -9,6 +10,7 @@ const RegisterPage = () => {
     const [address, setAddress] = useState('');
     const [showOtpInput, setShowOtpInput] = useState(false);
     const [isOtpVerified, setIsOtpVerified] = useState(false)
+    const {error,setError}= useUserContext()
     const navigate = useNavigate();
    
 
@@ -40,6 +42,7 @@ const RegisterPage = () => {
             console.log(response);
             if (response.status === 200) {
                 alert('Mobile Verified!');
+                setError(null)
                setIsOtpVerified(true)
                setShowOtpInput(false)
                 
@@ -47,7 +50,8 @@ const RegisterPage = () => {
         } catch (error:any) {
             
             if(error.response.status === 400){
-                alert(`${error.response.data}`);
+                
+                setError(error.response.data)
             }
             else{
                 console.log(error.response.data);
@@ -175,6 +179,7 @@ const RegisterPage = () => {
                                     Verify OTP
                                 </button>
                             </div>
+                            {error && <p className="text-red-500 text-sm mb-4 text-center font-semibold">{error}</p>}
                             <button
                                 type="button"
                                 onClick={handleResend}

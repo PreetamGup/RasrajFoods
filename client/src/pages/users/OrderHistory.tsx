@@ -68,7 +68,7 @@ const OrderHistory = () => {
                   <div className="flex justify-between md:block">
                     <span className="font-semibold">Order Date:</span>
                     <span className="md:mt-1 px-1">
-                      {new Date(order.orderDate).toLocaleString()}
+                        {new Date(order.orderDate).toLocaleDateString('en-IN')}
                     </span>
                   </div>
                   <div className="flex justify-between md:block">

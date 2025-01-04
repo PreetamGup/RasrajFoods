@@ -52,7 +52,7 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  if (!data) return <div className="text-center text-lg font-medium mt-20">Loading...</div>;
+  if (!data) return <div className="container text-center text-lg font-medium mt-20">Loading...</div>;
 
   const chartOptions = {
     responsive: true,
