@@ -55,6 +55,11 @@ const UserData = (props: UserDataProps) => {
 
     useEffect(() => {
         // ...existing code..
+
+        if(localStorage.getItem('cart')){
+            setCart(JSON.parse(localStorage.getItem('cart') as string));
+        }
+        
         const token = localStorage.getItem('token');
         if(token){
            

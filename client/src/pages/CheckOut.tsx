@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/user.context';
+import { MapPin, CreditCard, Package, Phone, User, Mail, MapPinIcon, Building, Map } from 'lucide-react';
 import axios from 'axios';
 
 declare global {
@@ -136,195 +137,213 @@ export default function CheckOut() {
   };
 
   return (
-    <div className="py-16 px-4 sm:px-6 lg:px-8 lg:w-2/3 mx-auto">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-playfair text-secondary mb-8 text-center">
-          Checkout
-        </h1>
-        <div className="bg-orange-100 p-6 rounded-lg shadow-lg ">
-          <div className="lg:flex lg:space-x-8">
-            {/* Delivery Address Form */}
-            <div className="lg:w-1/2">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Delivery Address
-              </h2>
-              <form className="space-y-4 mb-8 ">
-                {/* Name Field */}
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-500 px-1 py-1 rounded-md shadow-sm focus:border-primary focus:ring-primary"
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                  )}
-                </div>
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <Package className="w-8 h-8 text-primary" />
+          <h1 className="text-4xl font-playfair text-gray-900">Checkout</h1>
+        </div>
 
-                {/* Mobile Field */}
-                <div>
-                  <label
-                    htmlFor="mobile"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Mobile Number
-                  </label>
-                  <input
-                    type="text"
-                    id="mobile"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-500 px-1 py-1 rounded-md shadow-sm focus:border-primary focus:ring-primary"
-                  />
-                  {errors.mobile && (
-                    <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>
-                  )}
-                </div>
-
-                {/* PIN Code Field */}
-                <div>
-                  <label
-                    htmlFor="pincode"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    PIN Code
-                  </label>
-                  <input
-                    type="text"
-                    id="pincode"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-500 px-1 py-1 rounded-md shadow-sm focus:border-primary focus:ring-primary"
-                  />
-                  {errors.pincode && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.pincode}
-                    </p>
-                  )}
-                </div>
-
-                {/* Address Field */}
-                <div>
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Address
-                  </label>
-                  <textarea
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-500 px-1 py-1 rounded-md shadow-sm focus:border-primary focus:ring-primary"
-                  ></textarea>
-                  {errors.address && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.address}
-                    </p>
-                  )}
-                </div>
-
-                {/* City Field */}
-                <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-500 px-1 py-1 rounded-md shadow-sm focus:border-primary focus:ring-primary"
-                  />
-                  {errors.city && (
-                    <p className="text-red-500 text-sm mt-1">{errors.city}</p>
-                  )}
-                </div>
-
-                {/* State Field */}
-                <div>
-                  <label
-                    htmlFor="state"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    State
-                  </label>
-                  <input
-                    type="text"
-                    id="state"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-500 px-1 py-1 rounded-md shadow-sm focus:border-primary focus:ring-primary"
-                  />
-                  {errors.state && (
-                    <p className="text-red-500 text-sm mt-1">{errors.state}</p>
-                  )}
-                </div>
-              </form>
-            </div>
-
-            {/* Order Summary */}
-            <div className="lg:w-1/2 border-l-2 bg-white rounded-lg p-4">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Order Summary
-              </h2>
-              <ul className="space-y-4">
-                {cart.map((item: any) => (
-                  <li key={item._id} className="flex justify-between">
-                    <span>{item.name}</span>
-                    <span>
-                      ₹{item.price.toFixed(2)} x {item.quantity}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex justify-between">
-                <span className="text-lg font-semibold">Total:</span>
-                <span className="text-lg font-semibold">
-                  ₹{calculateTotal()}
-                </span>
+        <div className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
+          {/* Delivery Address Form */}
+          <div className="lg:col-span-7">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="p-6">
+                <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
+                  <MapPin className="w-6 h-6 text-primary" />
+                  Delivery Details
+                </h2>
+                <p className="mt-1 text-sm text-gray-500">Please fill in your delivery information</p>
               </div>
-              <button
-                onClick={handlePayment}
-                className="mt-6 w-full px-6 py-3 bg-primary text-white rounded-full text-lg font-semibold hover:bg-secondary transition-colors"
-              >
-                Pay with Razorpay
-              </button>
+
+              <div className="border-t border-gray-100 px-6 py-8">
+                <div className="space-y-6">
+                  {/* Name Field */}
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <User className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="block w-full pl-10 py-3 border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+                  </div>
+
+                  {/* Mobile Field */}
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700">Mobile Number</label>
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Phone className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="tel"
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleInputChange}
+                        className="block w-full pl-10 py-3 border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                        placeholder="9999999999"
+                        maxLength={10}
+                      />
+                    </div>
+                    {errors.mobile && <p className="mt-1 text-sm text-red-500">{errors.mobile}</p>}
+                  </div>
+
+                  {/* Address Fields Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700">PIN Code</label>
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <MapPinIcon className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          type="text"
+                          name="pincode"
+                          value={formData.pincode}
+                          onChange={handleInputChange}
+                          className="block w-full pl-10 py-3 border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                          placeholder="123456"
+                          maxLength={6}
+                        />
+                      </div>
+                      {errors.pincode && <p className="mt-1 text-sm text-red-500">{errors.pincode}</p>}
+                    </div>
+
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700">City</label>
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Building className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          type="text"
+                          name="city"
+                          value={formData.city}
+                          onChange={handleInputChange}
+                          className="block w-full pl-10 py-3 border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                          placeholder="Your City"
+                        />
+                      </div>
+                      {errors.city && <p className="mt-1 text-sm text-red-500">{errors.city}</p>}
+                    </div>
+                  </div>
+
+                  {/* Full Width Fields */}
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700">State</label>
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Map className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleInputChange}
+                        className="block w-full pl-10 py-3 border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                        placeholder="Your State"
+                      />
+                    </div>
+                    {errors.state && <p className="mt-1 text-sm text-red-500">{errors.state}</p>}
+                  </div>
+
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700">Full Address</label>
+                    <div className="mt-1">
+                      <textarea
+                        name="address"
+                        value={formData.address}
+                        onChange={handleInputChange}
+                        rows={3}
+                        className="block w-full py-3 px-4 border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                        placeholder="Street address, apartment, suite, etc."
+                      />
+                    </div>
+                    {errors.address && <p className="mt-1 text-sm text-red-500">{errors.address}</p>}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Order Summary */}
+          <div className="lg:col-span-5 mt-8 lg:mt-0">
+            <div className="sticky top-4">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="p-6">
+                  <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
+                    <CreditCard className="w-6 h-6 text-primary" />
+                    Order Summary
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-500">Review your order details</p>
+                </div>
+
+                <div className="border-t border-gray-100 px-6 py-4">
+                  <div className="flow-root">
+                    <ul className="-my-4 divide-y divide-gray-100">
+                      {cart.map((item: any) => (
+                        <li key={item._id} className="py-4 flex items-center justify-between">
+                          <div className="flex items-center">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-16 h-16 rounded-lg object-cover"
+                            />
+                            <div className="ml-4">
+                              <p className="text-sm font-medium text-gray-900">{item.name}</p>
+                              <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                            </div>
+                          </div>
+                          <p className="text-sm font-medium text-gray-900">
+                            ₹{(item.price * item.quantity).toFixed(2)}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-100 px-6 py-4">
+                  <div className="flex items-center justify-between text-lg font-medium text-gray-900">
+                    <p>Total Amount</p>
+                    <p>₹{calculateTotal()}</p>
+                  </div>
+                </div>
+
+                <div className="px-6 py-4">
+                  <button
+                    onClick={handlePayment}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  >
+                    <CreditCard className="w-5 h-5" />
+                    Pay Securely
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Loading Overlay */}
-        {loading && (
-          <div className="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 flex items-center justify-center">
-            <div className="flex flex-col items-center">
-              {/* Spinner */}
-              <div className="w-16 h-16 border-4 border-white border-t-transparent border-solid rounded-full animate-spin"></div>
-              {/* Loading Text */}
-              <div className="text-white text-xl font-medium mt-4">
-                Processing Payment...
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center">
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+            <p className="mt-4 text-lg font-medium text-gray-900">Processing Payment...</p>
+            <p className="mt-2 text-sm text-gray-500">Please don't close this window</p>
+          </div>
+        </div>
+      )}
     </div>
   );
   }

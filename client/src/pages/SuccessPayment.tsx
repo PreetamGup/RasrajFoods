@@ -5,6 +5,8 @@ export default function SuccessPayment() {
   const location = useLocation();
   const [paymentId, setPaymentId] = useState<string | null>(null);
 
+  localStorage.removeItem('cart')
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const id = queryParams.get("payment_id");

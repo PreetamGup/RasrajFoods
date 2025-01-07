@@ -1,7 +1,15 @@
-import React from 'react';
 import { Instagram, Twitter, Facebook } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 export default function Footer() {
+
+  const location = useLocation();
+  
+
+  if (["/menu", "/cart","/checkout"].includes(location.pathname)) {
+    return null;
+  }
+
   return (
     <footer className="bg-gray-100 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -2,6 +2,7 @@ import  { useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/user.context';
 import axios from 'axios';
+import { Phone, RefreshCw, ShieldCheck } from 'lucide-react';
 
 
 
@@ -66,84 +67,112 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-orange-300 to-red-500">
-            <div className="w-full max-w-md  rounded-lg shadow-xl bg-white bg-opacity-20 p-8">
-                <div className="text-center">
-                    <img
-                        src='/logos/android-chrome-512x512.png'
-                        alt="Food logo"
-                        className="w-24 mx-auto mb-4"
-                    />
-                    <h1 className="text-2xl font-bold text-gray-800">Welcome Back!</h1>
-                    <p className="text-gray-500 mb-6">Login to explore our delicious menu</p>
-                </div>
-                <form onSubmit={(e) => e.preventDefault()}>
-                    {!showOtpInput ? (
-                        <>
-                            <label className="block text-gray-700 mb-2 font-semibold">Mobile Number</label>
-                            <input
-                                type="text"
-                                maxLength={10}
-                                value={mobile}
-                                onChange={(e) => setMobile(e.target.value)}
-                                placeholder="Enter your mobile number"
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                            />
-
-                            {error && <p className="text-red-500 text-sm mt-2 text-center font-semibold">{error}</p>}
-
-                            <button
-                                type="button"
-                                onClick={handleLoginClick}
-                                className="w-full mt-4 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600"
-                            >
-                                Login
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={()=>navigate("/register")}
-                                className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600"
-                            >
-                                Register
-                            </button>
-
-
-                        </>
-                    ) : (
-                        <>
-                            <label className="block text-gray-700 font-semibold mb-2">Enter OTP</label>
-                            <input
-                                type="text"
-                                maxLength={4}
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                placeholder="Enter the OTP sent to your number"
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                            />
-
-                            {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
-
-                            <button
-                                type="button"
-                                onClick={handleOtpVerify}
-                                className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600"
-                            >
-                                Verify OTP
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={handleResend}
-                                className="w-full mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600"
-                            >
-                               Resend
-                            </button>
-                        </>
-                    )}
-                </form>
-            </div>
+        <div className="min-h-screen flex items-center justify-center bg-orange-100">
+  <div className="w-full max-w-xl p-8">
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div className="px-8 py-6 bg-gradient-to-r from-primary to-primary/80">
+        <div className="text-center">
+          <img
+            src="/logos/android-chrome-512x512.png"
+            alt="Logo"
+            className="w-20 h-20 mx-auto mb-4 rounded-full bg-white p-2"
+          />
+          <h1 className="text-3xl font-playfair text-white mb-2">Welcome Back!</h1>
+          <p className="text-white/80">Login to explore our delicious menu</p>
         </div>
+      </div>
+
+      <div className="p-8">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+          {/* Mobile Number Field */}
+          {!showOtpInput && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Phone className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  maxLength={10}
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
+                  placeholder="Enter your mobile number"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* OTP Verification Section */}
+          {showOtpInput && (
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Enter OTP</label>
+                <div className="flex gap-3">
+                  <div className="relative flex-1">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <ShieldCheck className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      type="text"
+                      maxLength={4}
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      placeholder="Enter OTP"
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleOtpVerify}
+                    className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors whitespace-nowrap"
+                  >
+                    Verify OTP
+                  </button>
+                </div>
+              </div>
+
+
+              <button
+                type="button"
+                onClick={handleResend}
+                className="w-full flex items-center justify-center gap-2 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                <RefreshCw className="w-5 h-5" />
+                Resend OTP
+              </button>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+          {!showOtpInput && (
+            <button
+              type="button"
+              onClick={handleLoginClick}
+              className="w-full py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-lg font-semibold"
+            >
+              Login
+            </button>
+          )}
+
+          <p className="text-center text-sm text-gray-500">
+            Don't have an account?{' '}
+            <button
+              onClick={() => navigate('/register')}
+              className="text-primary font-semibold hover:text-primary/80"
+            >
+              Sign up
+            </button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
     );
 };
 

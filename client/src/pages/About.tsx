@@ -9,7 +9,7 @@ export default function About() {
           About Us
         </h1>
 
-        <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
+        <div className="text-center lg:text-left space-y-6 text-gray-700 text-lg leading-relaxed">
           <p>
             Welcome to <span className="text-primary font-semibold">Rasraj</span>, 
             your trusted destination for the finest snacks, sweets, and cakes. 
