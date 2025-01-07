@@ -6,7 +6,7 @@ export default function Footer() {
   const location = useLocation();
   
 
-  if (["/menu", "/cart","/checkout","/login","register"].includes(location.pathname)) {
+  if (["/menu", "/cart","/checkout","/login","/register"].includes(location.pathname)) {
     return null;
   }
 
