@@ -23,9 +23,20 @@ const userMethods = {
         return res.send("add user");
     },
 
-    editUser: function(req, res) {
+    editUser:async function(req, res) {
         // Update user data in your database
-        return res.send("edit user");
+        try {
+            const {userId, formData} = req.body;
+
+            await User.findByIdAndUpdate(userId, formData)
+
+            return res.status(200).json({success:true, message:"User updated successfully"});
+            
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).json({message:"Error updating user", error:error});
+            
+        }
     },
 
     deleteUser: function(req, res) {
